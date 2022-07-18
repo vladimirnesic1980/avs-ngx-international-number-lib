@@ -1,23 +1,16 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
-import { countries, Country } from '../country-data';
+import { Component, ElementRef, HostListener, ViewEncapsulation } from '@angular/core';
 import { CountryCode } from 'libphonenumber-js';
+import { countries, Country } from '../country-data';
 import { InternationalNumberDirective } from '../ngx-international-number.directive';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-country-select',
   templateUrl: './country-select.component.html',
   styleUrls: ['./country-select.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    '(document:click)': 'documentClick($event)',
-  },
+  encapsulation: ViewEncapsulation.None
 })
-export class CountrySelectComponent implements OnInit {
+export class CountrySelectComponent {
   public selectedCountry?: Country;
   public showList = false;
   public customScrollbar = true;
@@ -27,9 +20,15 @@ export class CountrySelectComponent implements OnInit {
 
   public directiveRef?: InternationalNumberDirective;
 
-  constructor(private ref: ElementRef) {}
+  @HostListener('document:click', ['$event'])
+  documentClick(event: MouseEvent): void {
+    // Outside Click
+    if (!this.ref.nativeElement.contains(event.target)) {
+      this.showList = false;
+    }
+  }
 
-  ngOnInit(): void {}
+  constructor(private ref: ElementRef) {}
 
   setCountry(code: CountryCode, country?: Country) {
     if (!country) {
@@ -45,28 +44,20 @@ export class CountrySelectComponent implements OnInit {
     return country;
   }
 
-  documentClick(event: MouseEvent) {
-    // Outside Click
-    if (!this.ref.nativeElement.contains(event.target)) {
-      this.showList = false;
-    }
-  }
-
-  toggleDropdown() {
+  toggleDropdown(): void {
     this.showList = !this.showList;
     this.directiveRef?.dropdownOpened.emit(this.showList);
   }
 
-  filterCountries(search: string) {
+  filterCountries(search: string): void {
     if (!search) {
       this.countries = countries;
-      return;
+    } else {
+      search = search.toLowerCase();
+
+      this.countries = countries.filter((country) =>
+        country.name.toLowerCase().includes(search)
+      );
     }
-
-    search = search.toLowerCase();
-
-    this.countries = countries.filter((country) =>
-      country.name.toLowerCase().includes(search)
-    );
   }
 }

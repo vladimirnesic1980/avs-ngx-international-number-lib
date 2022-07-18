@@ -12,12 +12,12 @@
     "declaration": false,
     "downlevelIteration": true,
     "paths": {
-      "ngx-international-number": [
-        "dist/ngx-international-number/ngx-international-number",
-        "dist/ngx-international-number"
-      ],
       "libphonenumber-js": [
         "./node_modules/libphonenumber-js"
+      ],
+      "ngx-international-number-lib": [
+        "dist/ngx-international-number-lib/ngx-international-number-lib",
+        "dist/ngx-international-number-lib"
       ]
     },
     "experimentalDecorators": true,

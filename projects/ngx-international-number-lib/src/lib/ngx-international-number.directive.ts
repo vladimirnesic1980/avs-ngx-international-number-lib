@@ -1,16 +1,15 @@
+import { DOCUMENT } from '@angular/common';
 import {
-  ComponentFactoryResolver,
-  EventEmitter,
-  Output,
-  ViewContainerRef,
+  Directive, ElementRef, EventEmitter, Inject, Input, OnInit, Output,
+  ViewContainerRef
 } from '@angular/core';
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
-import { CountrySelectComponent } from './country-select/country-select.component';
+import { CountryCode, parsePhoneNumber } from 'libphonenumber-js';
 import { Country } from './country-data';
+import { CountrySelectComponent } from './country-select/country-select.component';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[international-number]',
   providers: [
     {
@@ -26,36 +25,26 @@ export class InternationalNumberDirective implements Validator, OnInit {
   @Input() customScrollbar: boolean = true;
   @Input() hue?: string;
   @Output() countrySelected = new EventEmitter<Country>();
-  @Output() dropdownOpened = new EventEmitter<Boolean>();
+  @Output() dropdownOpened = new EventEmitter<boolean>();
   private countrySelectComponent: CountrySelectComponent;
   public control?: AbstractControl;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     inputRef: ElementRef,
     view: ViewContainerRef,
-    factoryResolver: ComponentFactoryResolver
   ) {
-    const compFactory = factoryResolver.resolveComponentFactory(
-      CountrySelectComponent
-    );
-
-    this.countrySelectComponent = view.createComponent(
-      compFactory,
-      undefined,
-      view.injector,
-      [[inputRef.nativeElement]]
-    ).instance;
-
+    this.countrySelectComponent = view.createComponent(CountrySelectComponent, {projectableNodes:[[inputRef.nativeElement]]}).instance;
     this.countrySelectComponent.directiveRef = this;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.countrySelectComponent.searchPlaceHolder = this.searchPlaceHolder;
 
     this.countrySelectComponent.customScrollbar = this.customScrollbar;
 
     if (this.hue) {
-      document.documentElement.style.setProperty('--hue', this.hue);
+      this.document.documentElement.style.setProperty('--hue', this.hue);
     }
 
     if (this.defaultCountry) {
