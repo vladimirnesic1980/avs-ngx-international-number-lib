@@ -1,39 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-international-number": {
-      "projectType": "library",
-      "root": "projects/ngx-international-number",
-      "sourceRoot": "projects/ngx-international-number/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ngx-international-number/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ngx-international-number/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/ngx-international-number/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-international-number/src/test.ts",
-            "tsConfig": "projects/ngx-international-number/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-international-number/karma.conf.js"
-          }
-        }
-      }
-    },
     "demo": {
       "projectType": "application",
       "schematics": {
@@ -135,9 +107,54 @@
             "scripts": []
           }
         },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/demo/**/*.ts",
+              "projects/demo/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-international-number-lib": {
+      "projectType": "library",
+      "root": "projects/ngx-international-number-lib",
+      "sourceRoot": "projects/ngx-international-number-lib/src",
+      "prefix": "ngx-number",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-international-number-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-international-number-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-international-number-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-international-number-lib/src/test.ts",
+            "tsConfig": "projects/ngx-international-number-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-international-number-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-international-number-lib/**/*.ts",
+              "projects/ngx-international-number-lib/**/*.html"
+            ]
+          }
         }
       }
     }

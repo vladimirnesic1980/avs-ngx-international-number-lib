@@ -1,6 +1,6 @@
 {
   "name": "ngx-international-number-lib",
-  "version": "1.6.0",
+  "version": "1.6.1",  
   "author": "AVS Solutions",
   "description": "International Phone Number Validation for Angular using Directive",
   "keywords": [
@@ -13,18 +13,14 @@
     "type": "git",
     "url": "https://github.com/all2pie/angular-international-number"
   },
-  "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "~12.1.0-",
-    "@angular/core": "~12.1.0-",
+    "@angular/common": "^13.3.0",
+    "@angular/core": "^13.3.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
-    "libphonenumber-js": "^1.9.49"
+    "libphonenumber-js": "^1.10.8"
   },
   "dependencies": {
-    "libphonenumber-js": "^1.9.49"
-  },
-  "devDependencies": {
-    "libphonenumber-js": "^1.9.49"
+    "tslib": "^2.3.0"
   }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Country } from 'projects/ngx-international-number/src/public-api';
+import { Country } from 'ngx-international-number-lib';
 
 @Component({
   selector: 'app-root',
