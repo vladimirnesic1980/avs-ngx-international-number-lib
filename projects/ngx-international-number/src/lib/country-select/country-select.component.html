@@ -1,0 +1,20 @@
+<div class="country-select" [ngClass]="{ 'dropdown-open': showList }">
+  <div class="country-select-btn" (click)="toggleDropdown()">
+    <span class="flag:{{selectedCountry.code}}" *ngIf="selectedCountry"></span>
+    <span *ngIf="!selectedCountry" class="placeholder-flag"></span>
+    <span class="arrow">{{ showList ? "▲" : "▼" }}</span>
+  </div>
+  <div class="dropdown" [ngClass]="{ show: showList }">
+    <input type="search" class="search" autocomplete="off"
+      [placeholder]="searchPlaceHolder || 'Shared.PleaseSelectCountry' | translate" [ngModel]="search"
+      (ngModelChange)="filterCountries($event)" autofocus />
+    <ul class="countries-list" [ngClass]="{ 'custom-scrollbar': customScrollbar }">
+      <li *ngFor="let country of countries; let i = index" (click)="setCountry(country.code, country)"
+        [tabindex]="i + 1" [ngClass]="{ selected: selectedCountry === country }">
+        <span class="flag:{{country.code}}" *ngIf="selectedCountry"></span>
+        <span>{{'CountriesIso.' + country.code | translate}}</span>
+      </li>
+    </ul>
+  </div>
+  <ng-content></ng-content>
+</div>
