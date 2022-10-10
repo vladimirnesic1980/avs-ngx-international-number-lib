@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve demo",
-    "watch": "ng build ngx-international-number --watch ",
-    "build": "ng build ngx-international-number",
-    "publish": "npm run build && cd dist/ngx-international-number/ && npm publish",
-    "deploy": "ng deploy --base-href=/angular-international-number/",
+    "watch": "ng build ngx-international-number-lib --watch ",
+    "build": "ng build ngx-international-number-lib",
+    "publish": "npm run build && cd dist/ngx-international-number-lib/ && npm publish",
+    "deploy": "ng deploy --base-href=/angular-international-number-lib/",
     "test": "ng test"
   },
   "private": true,
